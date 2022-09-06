@@ -1,0 +1,35 @@
+{
+  "name": "@ppzp/bd",
+  "version": "0.0.0",
+  "description": "db-like lib for vscode",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ppz-pro/bd.vscode.git"
+  },
+  "keywords": [
+    "ppz",
+    "vscode",
+    "database",
+    "state"
+  ],
+  "files": [
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md",
+    "index.js",
+    "collection.js",
+    "document.js"
+  ],
+  "author": "gy",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/ppz-pro/bd.vscode/issues"
+  },
+  "homepage": "https://github.com/ppz-pro/bd.vscode#readme",
+  "dependencies": {
+    "@ppzp/context": ">=0.0.0",
+    "@ppzp/stupid": ">=0.0.0",
+    "uuid": ">=7.0.0"
+  }
+}
