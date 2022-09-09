@@ -1,17 +1,24 @@
 const { get: getContext } = require('@ppzp/context')
 const isRealString = require('@ppzp/stupid/real-string')
 
-/** access、persist data.
+const uniqueStorageName = new Set()
+
+/**
+ * access、persist data.
  * like a table in relational database
  * or a collection in mongodb.
  */
-module.exports = class BD {
+module.exports = class Storage {
   /**
-   * @param {string} name the name of the table/collection
+   * @param {string} name the name of the Storage
    */
   constructor(name) {
     if(!isRealString(name))
-      throw Error('error on constructing BD: a BD needs a string name')
+      throw Error('error on constructing Storage: a Storage needs a string name')
+    if(uniqueStorageName.has(name))
+      throw Error(`error on constructing Storage: the storage name of ${name} has already exist`)
+    uniqueStorageName.add(name)
+    
     this.name = name
   }
   
@@ -68,4 +75,3 @@ module.exports = class BD {
     return {}
   }
 }
-exports.BD = BD

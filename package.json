@@ -14,12 +14,12 @@
     "state"
   ],
   "files": [
-    "LICENSE",
-    "README.md",
     "CHANGELOG.md",
-    "index.js",
     "collection.js",
-    "document.js"
+    "document.js",
+    "index.js",
+    "LICENSE",
+    "README.md"
   ],
   "author": "gy",
   "license": "Unlicense",
