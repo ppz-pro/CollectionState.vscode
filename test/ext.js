@@ -1,29 +1,35 @@
 const Ctx = require('@ppzp/context')
-const { testError, TestLog } = require('./test')
-
-const Storage = require('@ppzp/bd')
+const { TestLog } = require('./test')
 
 exports.activate = async function(ctx) {
-  console.log('pppppppppppppppppppppppppp')
-  Ctx.set(ctx)
-  testNoName()
-  testDuplicatedName()
+  let hasError
+  try {
+    console.log('@ppzp/bd test start')
+    Ctx.set(ctx)
 
-  await testInstance()
-  await testExtends()
-  console.log('pppppppppppppppppppppppppp')
+    testConstructor()
+    await testInstance()
+    await testExtends()
+
+    console.log('@ppzp/bd test finish')
+  } catch(err) {
+    hasError = true
+    console.error(err)
+  }
 }
 
-function testNoName() {
-  testError(
+function testConstructor() {
+  const Storage = require('@ppzp/bd')
+  const testLog = TestLog('constructor')
+
+  testLog.error(
     'no name',
     () => {
       new Storage()
     }
   )
-}
-function testDuplicatedName() {
-  testError(
+
+  testLog.error(
     'duplicated name',
     () => {
       new Storage('same-name')
@@ -34,8 +40,8 @@ function testDuplicatedName() {
 
 async function testInstance() {
   const instance = require('./index/instance')
-
   const testLog = TestLog('instance')
+
   testLog(
     'instance.getAll()',
     instance.getAll()
@@ -45,7 +51,7 @@ async function testInstance() {
     instance.checkout()
   )
 
-  testLog.success(
+  await testLog.success(
     'instance.saveAll()',
     async () => {
       const number = Math.random()
@@ -59,8 +65,7 @@ async function testInstance() {
 }
 
 async function testExtends() {
-  const eextends = require('./extends')
-
+  const eextends = require('./index/extends')
   const testLog = TestLog('extends')
 
   testLog.error(
@@ -70,7 +75,7 @@ async function testExtends() {
     }
   )
 
-  testLog.error(
+  await testLog.error(
     'saveAll',
     async () => {
       await eextends.saveAll({})
