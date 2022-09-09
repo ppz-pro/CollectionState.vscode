@@ -64,7 +64,7 @@ module.exports = class Collection extends Storage {
 
     const all = this.checkout()
     all.push(doc)
-    this.saveAll(all)
+    super.saveAll(all)
   }
 
   /**
@@ -77,7 +77,7 @@ module.exports = class Collection extends Storage {
     const data = this.checkout()
     const index = data.findIndex(where)
     data.splice(index, 1, doc)
-    await this.saveAll(data)
+    await super.saveAll(data)
   }
 
   /**
@@ -122,5 +122,13 @@ module.exports = class Collection extends Storage {
   findOne(where) {
     where = this.__where(where)
     return this.find(where)[0]
+  }
+
+  async saveAll(data) {
+    console.warn("you're using @ppzp/bd/Collection.saveAll which is not recommanded, you can use _saveAll to deprecate this warning")
+    await super.saveAll(data)
+  }
+  async _saveAll(data) {
+    await super.saveAll(data)
   }
 }
