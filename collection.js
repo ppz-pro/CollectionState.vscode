@@ -1,10 +1,10 @@
 const { v4: UUID } = require('uuid')
 const isRealString = require('@ppzp/stupid/real-string')
 
-const BD = require('./index')
+const Storage = require('./index')
 
-/** MongoDB-Collection-Like BD  */
-module.exports = class Collection extends BD {
+/** MongoDB-Collection-Like Storage  */
+module.exports = class Collection extends Storage {
   /**
    * @param {string} name the name of the collection
    * @param {string} pkName the name of primary key
@@ -73,7 +73,7 @@ module.exports = class Collection extends BD {
    * @param doc
    */
   async updateOne(where, doc) {
-    this.__checkWhere(where)
+    where = this.__where(where)
     const data = this.checkout()
     const index = data.findIndex(where)
     data.splice(index, 1, doc)
@@ -87,7 +87,9 @@ module.exports = class Collection extends BD {
    */
   __where(where) {
     if(this.pkName && isRealString(where))
-      return item => item[this.pkName] == where
+      where = item => item[this.pkName] == where
+    this.__checkWhere(where)
+    return where
   }
 
   /**
