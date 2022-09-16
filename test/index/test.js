@@ -1,7 +1,7 @@
 const TestLog = require('../test')
 
 module.exports = async function() {
-  console.debug('[testing index: 3]')
+  console.debug('[[testing index]]')
   testConstructor()
   await testInstance()
   await testExtends()
