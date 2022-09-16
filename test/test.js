@@ -1,20 +1,13 @@
-exports.testError = async function testError(desc, exec) {
-  try {
-    await exec()
-    console.error(`[${desc}]`, 'failed')
-  } catch(err) {
-    console.log(`[${desc}]`, 'success')
-  }
-}
+// vscode 里的 console.group 不能用……真是坑死人
 
-exports.TestLog = function TestLog(name) {
+module.exports = function(name) {
   function testLog(desc, value) {
     console.log(`[${name}]`, `[${desc}]`, value)
   }
   testLog.error = async function(desc, exec) {
     try {
       await exec()
-      console.error(`[${name}]`, `[${desc}]`, 'failed')
+      console.error(`[${name}]`, `[${desc}]`, 'failed, expecting an error')
     } catch(err) {
       console.log(`[${name}]`, `[${desc}]`, 'success')
     }
@@ -24,7 +17,8 @@ exports.TestLog = function TestLog(name) {
       await exec()
       console.log(`[${name}]`, `[${desc}]`, 'success')
     } catch(err) {
-      console.error(`[${name}]`, `[${desc}]`, 'failed')
+      console.error(`[${name}]`, `[${desc}]`, 'failed, unexpected error')
+      console.log(err)
     }
   }
   return testLog
