@@ -140,15 +140,11 @@ module.exports = class Collection extends Storage {
     await super.saveAll(data)
   }
   async saveAllUnique(data) {
-    
-    if(this.pkName) {
-      const set = new Set()
-      for(let doc of data) {
-        const pk = doc[this.pkName]
-        if(set.has(pk))
-          throw Error('duplicated pk: ' + pk)
-        set.add(pk)
-      }
+    const set = new Set()
+    for(let doc of data) {
+      if(set.has(doc._id))
+        throw Error('duplicated id: ' + doc._id)
+      set.add(doc._id)
     }
 
     await super.saveAll(data)

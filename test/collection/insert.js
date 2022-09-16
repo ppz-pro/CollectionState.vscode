@@ -1,7 +1,9 @@
 const Collection = require('@ppzp/bd/collection')
-const TestLog = require('../test')
+const { get: getContext } = require('@ppzp/context')
 
+const TestLog = require('../test')
 const instance = new Collection('insert')
+getContext().globalState.update('insert', undefined)
 
 module.exports = async function() {
   const testLog = TestLog('collection insert: n')
@@ -50,6 +52,14 @@ module.exports = async function() {
     'error type insert many',
     async () => {
       await instance.insertMany({})
+    }
+  )
+
+  await testLog.error(
+    'duplicated id',
+    async () => {
+      const doc = instance.getAll()[0]
+      await instance.insertOne(doc)
     }
   )
 }
