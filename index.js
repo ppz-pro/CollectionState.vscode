@@ -35,27 +35,11 @@ module.exports = class Storage {
   }
 
   /**
-   * check if `data` is valid generally
-   * @param data the data to validate
+   * get initial data
+   * @returns initial data
    */
-  validate(data) {}
-
-  /**
-   * check if `data` is valid
-   * @param data the data to validate
-   */
-  check(data) {
-    this.validate(data)
-  }
-
-  /**
-   * get data, check data, return data
-   * @returns the valid data
-   */
-  checkout() {
-    const data = this.getAll()
-    this.check(data)
-    return data
+  getInitData() {
+    return {}
   }
 
   /**
@@ -63,15 +47,6 @@ module.exports = class Storage {
    * @param data the data to save
    */
   async saveAll(data) {
-    this.check(data)
     await getContext().globalState.update(this.name, data)
-  }
-
-  /**
-   * get initial data
-   * @returns initial data
-   */
-  getInitData() {
-    return {}
   }
 }

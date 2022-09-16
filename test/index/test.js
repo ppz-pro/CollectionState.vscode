@@ -29,7 +29,7 @@ function testConstructor() {
 
 async function testInstance() {
   const instance = require('./instance')
-  const testLog = TestLog('instance: 3')
+  const testLog = TestLog('instance: 2')
 
   await testLog.success(
     'instance.saveAll()',
@@ -47,32 +47,14 @@ async function testInstance() {
     'instance.getAll()',
     instance.getAll()
   )
-  testLog(
-    'instance.checkout()',
-    instance.checkout()
-  )
 }
 
 async function testExtends() {
   const eextends = require('./extends')
-  const testLog = TestLog('extends: 3')
-
-  testLog.error(
-    'validate',
-    () => {
-      eextends.validate({})
-    }
-  )
-
-  await testLog.error(
-    'saveAll unvalid',
-    async () => {
-      await eextends.saveAll({})
-    }
-  )
+  const testLog = TestLog('extends: 1')
 
   await testLog.success(
-    'saveAll valid',
+    'instance.saveAll()',
     async () => {
       await eextends.saveAll({
         name: 'ppz'
