@@ -9,6 +9,7 @@ exports.activate = async function(ctx) {
     '@ppzp/bd',
     async () => {
       await require('./index/test')()
+      console.log('')
       await require('./collection/test')()
     }
   )
