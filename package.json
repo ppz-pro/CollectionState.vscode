@@ -9,9 +9,7 @@
   },
   "keywords": [
     "ppz",
-    "vscode",
-    "database",
-    "state"
+    "vscode"
   ],
   "files": [
     "CHANGELOG.md",
