@@ -1,8 +1,23 @@
 # @ppzp/bd
-一个 js 库，简化 vscode 插件开发中的数据持久化操作  
+[![license](https://img.shields.io/github/license/ppz-pro/bd.vscode)](https://github.com/ppz-pro/bd.vscode/blob/main/LICENSE)
+
+一个 js 库，应用于 vscode 插件开发，简化数据持久化操作  
 底层使用 vscode.ExtensionContext.globalState  
 
-> 如果你的数据量较大，应使用 MySQL、MongoDB 之类的正经数据库
+## Why @ppzp/bd
++ 如果你的数据量非常大，应使用 MySQL、MongoDB 之类的大型数据库
+  + 但要架设远程数据库服务器
+  + 断网的时候插件不能正常使用
++ 如果数据量没那么大，可以考虑 Sqlite3，它可以和插件一起打包发布，不需要架设远程数据库服务器，断网可用
+  + 但 Sqlite3 会让插件的体积增大几 M
+  + 不同的操作系统、CPU 需要使用不同的 Sqlite3 版本
++ 如果，，，以上都不是问题，那你就不需要 @ppzp/bd
+
+否则，@ppzp/bd 也许值得一试：
++ 不需要架设数据库服务器
++ 断网可用
++ 体积极小（压缩**前**，大约几 Kb）
++ 不存在跨平台问题
 
 ## 原则
 + 宁简陋，不繁琐。简单，所以健壮
