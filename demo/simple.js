@@ -13,16 +13,24 @@ exports.activate = async function(context) {
   })
   
   const users = userCollection.getAll()
-  console.log({ users })
+  console.log('all user', str(users))
 
   const ppz = userCollection.findById(users[0]._id)
-  console.log({ ppz })
+  console.log('ppz', str(ppz))
 
   ppz.name = 'ccz'
   ppz.year = 2
-  await userCollection.replaceById(ppz._id, ppz)
-  console.log('ccz', userCollection.findById(ppz._id))
+  userCollection.replaceOne(ppz)
+  console.log('ccz', str(
+    userCollection.findById(ppz._id)
+  ))
 
   await userCollection.deleteById(ppz._id)
-  console.log('after delete', userCollection.getAll())
+  console.log('after delete', str(
+    userCollection.getAll()
+  ))
+}
+
+function str(target) {
+  return JSON.stringify(target)
 }

@@ -10,22 +10,24 @@
 ## 使用简介
 > 下面的案例仅展示 @ppzp/bd 的大概用法，具体细节请参考[这个 demo](./demo)
 
-安装：
+### 安装
 ``` bash
 npm install @ppzp/context @ppzp/bd
 ```
 
 > @ppzp/bd 依赖于 [@ppzp/context](https://github.com/ppz-pro/context.vscode)，用来设置 `vscode.ExtensionContext` 对象
 
+### Collection
 ```Collection``` 是 @ppzp/bd 的存储单位之一，类似于 MongoDB 里的 Collection 或 MySQL 里的 table  
 
-比如，创建 user collection
+创建 user collection
 ``` js
 const Collection = require('@ppzp/bd/collection')
 const userCollection = new Collection('user')
 ```
 
-创建用户（新增数据）：
+### 新增数据
+创建用户：
 ``` js
 userCollection.insertOne({
   name: 'ppz',
@@ -33,26 +35,29 @@ userCollection.insertOne({
 })
 ```
 
-获取用户，返回一个数组（查找数据）：
+### 查找数据
+获取用户，返回一个数组：
 ``` js
 userCollection.getAll()
 ```
 
-按 id 获取用户，返回一个用户（查找数据）：
+### 查找数据
+按 id 获取用户，返回一个用户：
 ``` js
 userCollection.findById(userId)
 ```
 
-更新用户（更新数据），整体替换，非局部更新：
+### 更新数据
+更新用户，整体替换，非局部更新：
 ``` js
-userCollection.replaceById(userId, {
-  _id: '123456', // 建议在原数据的基础上修改
-  name: 'ccz',
-  year: 2
-})
+const user = userCollection.findById(userId)
+user.name = 'ccz'
+user.year = 2
+userCollection.replaceOne(user)
 ```
 
-删除用户（删除数据）：
+### 删除数据
+删除用户：
 ``` js
 userCollection.deleteById(userId)
 ```
