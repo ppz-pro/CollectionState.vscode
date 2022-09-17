@@ -18,9 +18,9 @@ npm install @ppzp/context @ppzp/bd
 > @ppzp/bd 依赖于 [@ppzp/context](https://github.com/ppz-pro/context.vscode)，用来设置 `vscode.ExtensionContext` 对象
 
 ### Collection
-```Collection``` 是 @ppzp/bd 的存储单位之一，类似于 MongoDB 里的 Collection 或 MySQL 里的 table  
+```Collection``` 是 @ppzp/bd 的存储单位之一，类似于 MongoDB 里的 Collection 或 MySQL 里的 Table  
 
-创建 user collection
+创建 user collection：
 ``` js
 const Collection = require('@ppzp/bd/collection')
 const userCollection = new Collection('user')
@@ -61,6 +61,8 @@ await userCollection.replaceOne(user)
 ``` js
 await userCollection.deleteById(userId)
 ```
+
+更多具体细节请参考[这个 demo](./demo)
 
 ## bd?
 自古以来，编程界有两大难题，一是搞懂需求，二是给变量起名  

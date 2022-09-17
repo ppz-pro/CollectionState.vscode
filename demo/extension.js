@@ -25,26 +25,26 @@ exports.activate = async function(context) {
 
   // 获取所有用户（同步）
   const users = userModel.getAll()
-  console.log('\n\n获取所有用户', JSON.stringify(users))
+  // console.log('获取所有用户', JSON.stringify(users))
 
   // 获取一个用户（同步）
   const ppz = userModel.findOne(item => item.name == 'ppz')
-  console.log('\n\n获取 ppz', JSON.stringify(ppz))
+  // console.log('获取 ppz', JSON.stringify(ppz))
 
   // 通过 id 获取用户（同步）
   const ppzById = userModel.findById(ppz._id)
-  console.log('\n\n再获取 ppz', JSON.stringify(ppzById))
+  // console.log('再获取 ppz', JSON.stringify(ppzById))
 
   // 获取符合条件的用户（同步）
   const children = userModel.find(item => item.year == 3)
-  console.log('\n\n三岁的孩', JSON.stringify(children))
+  // console.log('三岁的孩', JSON.stringify(children))
 
   // 更新一个用户（异步）
   ppz.name = 'ohPPZ'
   ppz.year = 3.5
   ppz.tel = '110'
   await userModel.replaceOne(ppz)
-  console.log('\n\n改后的 ppz', JSON.stringify(userModel.findById(ppz._id)))
+  // console.log('改后的 ppz', JSON.stringify(userModel.findById(ppz._id)))
 
   // 更新多个用户（异步）
   const uuu = userModel.getAll()
@@ -53,17 +53,17 @@ exports.activate = async function(context) {
   ccz.name = 'ohCCZ'
   jj.name = 'ohJJ'
   await userModel.replaceMany([ccz, jj])
-  console.log('\n\n改后的 children', JSON.stringify(userModel.getAll()))
+  // console.log('改后的 children', JSON.stringify(userModel.getAll()))
 
   // 删除一个用户（异步）
   await userModel.deleteOne(item => item.name == 'ohPPZ')
-  console.log('\n\n删除 ppz 之后', JSON.stringify(userModel.getAll()))
+  // console.log('删除 ppz 之后', JSON.stringify(userModel.getAll()))
 
   // 根据 id 删除一个用户（异步）
   await userModel.deleteById(ccz._id)
-  console.log('\n\n删除 ccz 之后', JSON.stringify(userModel.getAll()))
+  // console.log('删除 ccz 之后', JSON.stringify(userModel.getAll()))
 
   // 删除符合条件的所有用户
   await userModel.deleteMany(item => item.year == 2)
-  console.log('\n\n没孩了', JSON.stringify(userModel.getAll()))
+  // console.log('没孩了', JSON.stringify(userModel.getAll()))
 }
