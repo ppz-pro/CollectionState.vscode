@@ -56,7 +56,7 @@ module.exports = class Collection extends Storage {
    * @param {string} id the id of the deleted document
    */
   async deleteById(id) {
-    await this.deleteOne(item => item.id === id)
+    await this.deleteOne(item => item._id === id)
   }
 
   /**

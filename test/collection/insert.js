@@ -62,4 +62,18 @@ module.exports = async function() {
       await instance.insertOne(doc)
     }
   )
+
+  await testLog.error(
+    'invalid id: integer',
+    async () => {
+      await instance.insertOne({ _id: 1 })
+    }
+  )
+
+  await testLog.error(
+    'invalid id empty string',
+    async () => {
+      await instance.insertOne({ _id: '' })
+    }
+  )
 }
