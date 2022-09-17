@@ -29,7 +29,7 @@ const userCollection = new Collection('user')
 ### 新增数据
 创建用户：
 ``` js
-userCollection.insertOne({
+await userCollection.insertOne({
   name: 'ppz',
   year: 3
 })
@@ -38,13 +38,13 @@ userCollection.insertOne({
 ### 查找数据
 获取用户，返回一个数组：
 ``` js
-userCollection.getAll()
+const users = userCollection.getAll()
 ```
 
 ### 查找数据
 按 id 获取用户，返回一个用户：
 ``` js
-userCollection.findById(userId)
+const user = userCollection.findById(userId)
 ```
 
 ### 更新数据
@@ -53,13 +53,13 @@ userCollection.findById(userId)
 const user = userCollection.findById(userId)
 user.name = 'ccz'
 user.year = 2
-userCollection.replaceOne(user)
+await userCollection.replaceOne(user)
 ```
 
 ### 删除数据
 删除用户：
 ``` js
-userCollection.deleteById(userId)
+await userCollection.deleteById(userId)
 ```
 
 ## bd?
