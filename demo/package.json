@@ -1,0 +1,15 @@
+{
+  "name": "vsc-plugin-demo",
+  "version": "0.0.0",
+  "engines": {
+    "vscode": "^1.47.3"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "dependencies": {
+    "@ppzp/bd": "file:../ppzp-bd-0.0.0.tgz",
+    "@ppzp/context": "^0.0.0"
+  }
+}

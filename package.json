@@ -16,7 +16,6 @@
   "files": [
     "CHANGELOG.md",
     "collection.js",
-    "document.js",
     "index.js",
     "LICENSE",
     "README.md"
