@@ -21,7 +21,7 @@ module.exports = class Collection extends Storage {
     
     const all = this.getAll()
     all.push(...docList)
-    await this.saveAllUnique(all)
+    await this.__saveAllUnique(all)
   }
 
   /**
@@ -80,7 +80,7 @@ module.exports = class Collection extends Storage {
     if(index == -1) return
 
     data.splice(index, 1, doc)
-    await this.saveAllUnique(data)
+    await this.__saveAllUnique(data)
   }
   
   async replaceById(id, doc) {
@@ -152,7 +152,7 @@ module.exports = class Collection extends Storage {
     console.warn("you're using @ppzp/bd/Collection.saveAll which is not recommanded")
     await super.saveAll(data)
   }
-  async saveAllUnique(data) {
+  async __saveAllUnique(data) {
     const set = new Set()
     for(let doc of data) {
       if(set.has(doc._id))

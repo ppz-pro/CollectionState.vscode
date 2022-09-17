@@ -3,4 +3,5 @@ module.exports = async function() {
   await require('./insert')()
   await require('./delete')()
   await require('./replace')()
+  await require('./find')()
 }
