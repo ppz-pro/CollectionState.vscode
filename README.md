@@ -8,7 +8,14 @@
 + 宁简陋，不繁琐。简单，所以健壮
 
 ## 使用简介
-> 下面的案例仅展示 @ppzp/bd 的大概用法，具体细节请参考[这个 demo](https://github.com/ppz-pro/bd.vscode/tree/main/demo)
+> 下面的案例仅展示 @ppzp/bd 的大概用法，具体细节请参考[这个 demo](./demo)
+
+安装：
+``` bash
+npm install @ppzp/context @ppzp/bd
+```
+
+> @ppzp/bd 依赖于 [@ppzp/context](https://github.com/ppz-pro/context.vscode)，用来设置 `vscode.ExtensionContext` 对象
 
 ```Collection``` 是 @ppzp/bd 的存储单位之一，类似于 MongoDB 里的 Collection 或 MySQL 里的 table  
 

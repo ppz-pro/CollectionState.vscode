@@ -66,25 +66,27 @@ module.exports = class Collection extends Storage {
 
   /**
    * replace a document.
-   * @param {function} where
    * @param doc
    */
-  async replaceOne(where, doc) {
+  async replaceOne(doc) {
     // TODO: return the replaced
-    this.__checkWhere(where)
-    this.validateOne(doc)
-    this.checkID(doc)
-
-    const data = this.getAll()
-    const index = data.findIndex(where)
-    if(index == -1) return
-
-    data.splice(index, 1, doc)
-    await this.__saveAllUnique(data)
+    await this.replaceMany([doc])
   }
   
-  async replaceById(id, doc) {
-    await this.replaceOne(item => item._id === id, doc)
+  async replaceMany(docs) {
+    if(!(docs instanceof Array))
+      throw TypeError('docs should be an Array')
+    
+    const data = this.getAll()
+    for(let doc of docs) {
+      this.validateOne(doc)
+      this.checkID(doc)
+      const index = data.findIndex(item => item._id === doc._id)
+      if(index == -1)
+        throw Error('the doc to replace not found, id: ' + doc._id)
+      data.splice(index, 1, doc)
+    }
+    await this.__saveAllUnique(data)
   }
 
   /** TODO
