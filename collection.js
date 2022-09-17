@@ -10,6 +10,7 @@ module.exports = class Collection extends Storage {
    * @param {any[]} docList
    */
   async insertMany(docList) {
+    // TODO: return the inserted(with id)
     if(!(docList instanceof Array))
       throw TypeError('docList should be an Array')
     docList.every(this.validateOne)
@@ -28,6 +29,7 @@ module.exports = class Collection extends Storage {
    * @param doc the document to insert
    */
   async insertOne(doc) {
+    // TODO: return the inserted(with id)
     await this.insertMany([doc])
   }
 
@@ -35,6 +37,7 @@ module.exports = class Collection extends Storage {
    * delete multiple document
    */
   async deleteMany(where) {
+    // TODO: return the deleted
     this.__checkWhere(where)
     const data = this.getAll()
     const remaining = data.filter(item => !where(item))
@@ -42,6 +45,7 @@ module.exports = class Collection extends Storage {
   }
 
   async deleteOne(where) {
+    // TODO: return the deleted
     this.__checkWhere(where)
     const data = this.getAll()
     const index = data.findIndex(where)
@@ -56,6 +60,7 @@ module.exports = class Collection extends Storage {
    * @param {string} id the id of the deleted document
    */
   async deleteById(id) {
+    // TODO: return the deleted
     await this.deleteOne(item => item._id === id)
   }
 
@@ -65,6 +70,7 @@ module.exports = class Collection extends Storage {
    * @param doc
    */
   async replaceOne(where, doc) {
+    // TODO: return the replaced
     this.__checkWhere(where)
     this.validateOne(doc)
     this.checkID(doc)
@@ -81,8 +87,15 @@ module.exports = class Collection extends Storage {
     await this.replaceOne(item => item._id === id, doc)
   }
 
+  /** TODO
+   * update documents
+   * @param {function} where
+   * @param {function} update - first argument is the updated doc and return the new one
+   * @return {any[]} - the updated
+   */
+  
   /**
-   * 获取符合条件的 document
+   * retrive documents
    * @param {function} where 查询条件函数
    */
   find(where) {
