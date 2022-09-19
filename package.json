@@ -1,6 +1,6 @@
 {
   "name": "@ppzp/bd",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "db-like lib for vscode",
   "main": "index.js",
   "repository": {

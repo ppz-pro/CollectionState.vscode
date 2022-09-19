@@ -3,11 +3,14 @@ const isRealString = require('@ppzp/stupid/real-string')
 
 const Storage = require('./index')
 
-/** MongoDB-Collection-Like Storage */
+/**
+ * MongoDB-Collection-Like Storage
+ * @template T
+ */
 module.exports = class Collection extends Storage {
   /**
    * insert multiple document
-   * @param {any[]} docList
+   * @param {T[]} docList
    */
   async insertMany(docList) {
     // TODO: return the inserted(with id)
@@ -89,16 +92,28 @@ module.exports = class Collection extends Storage {
     await this.__saveAllUnique(data)
   }
 
+  /**
+   * replace one if `document` has an id or insert it
+   * @param {T}
+   */
+  async upsert(document) {
+    if(document._id !== undefined)
+      await this.replaceOne(document)
+    else
+      await this.insertOne(document)
+  }
+
   /** TODO
    * update documents
    * @param {function} where
    * @param {function} update - first argument is the updated doc and return the new one
-   * @return {any[]} - the updated
+   * @return {T[]} - the updated
    */
   
   /**
    * retrive documents
    * @param {function} where 查询条件函数
+   * @return {T[]}
    */
   find(where) {
     this.__checkWhere(where)
@@ -109,12 +124,18 @@ module.exports = class Collection extends Storage {
   /**
    * 获取某一个符合条件的 document
    * @param {function} where 查询条件
+   * @return {T}
    */
   findOne(where) {
     this.__checkWhere(where)
     return this.find(where)[0]
   }
 
+  /**
+   * retrive a document by id
+   * @param {function} where
+   * @return {T}
+   */
   findById(id) {
     return this.findOne(item => item._id === id)
   }
@@ -130,7 +151,7 @@ module.exports = class Collection extends Storage {
 
   /**
    * check if a document has a valid id
-   * @param doc the document to check
+   * @param {T} doc the document to check
    */
   checkID(doc) {
     if(!isRealString(doc._id))
