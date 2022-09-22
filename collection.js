@@ -20,7 +20,7 @@ module.exports = class Collection extends Storage {
     for(let doc of docList)
       if(doc._id === undefined)
         doc._id = UUID()
-    docList.every(this.checkID)
+    docList.every(item => this.checkID(item._id))
     
     const all = this.getAll()
     all.push(...docList)
@@ -65,6 +65,7 @@ module.exports = class Collection extends Storage {
    */
   async deleteById(id) {
     // TODO: return the deleted
+    this.checkID(id)
     await this.deleteOne(item => item._id === id)
   }
 
@@ -84,7 +85,7 @@ module.exports = class Collection extends Storage {
     const data = this.getAll()
     for(let doc of docs) {
       this.validateOne(doc)
-      this.checkID(doc)
+      this.checkID(doc._id)
       const index = data.findIndex(item => item._id === doc._id)
       if(index == -1)
         throw Error('the doc to replace not found, id: ' + doc._id)
@@ -139,6 +140,7 @@ module.exports = class Collection extends Storage {
    * @return {T}
    */
   findById(id) {
+    this.checkID(id)
     return this.findOne(item => item._id === id)
   }
 
@@ -152,12 +154,12 @@ module.exports = class Collection extends Storage {
   }
 
   /**
-   * check if a document has a valid id
-   * @param {T} doc the document to check
+   * check if a document id is valid or not
+   * @param {string} id the id to check
    */
-  checkID(doc) {
-    if(!isRealString(doc._id))
-      throw Error('invalid document: invalid id ' + doc._id)
+  checkID(id) {
+    if(!isRealString(id))
+      throw Error('invalid id: ' + id)
   }
 
   /**

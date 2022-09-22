@@ -20,7 +20,7 @@ async function deleteMany() {
     }
   )
   
-  instance.insertMany([
+  await instance.insertMany([
     { year: 3, name: 'ppz' },
     { year: 2, name: 'ccz' },
     { year: 2, name: 'jj' },

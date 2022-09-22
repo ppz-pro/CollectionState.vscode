@@ -9,7 +9,7 @@
   ],
   "main": "./ext.js",
   "dependencies": {
-    "@ppzp/bd": "^0.0.0",
+    "@ppzp/bd": "file:../ppzp-bd-0.1.1.tgz",
     "@ppzp/context": ">=0.0.0"
   }
 }
