@@ -34,7 +34,7 @@ module.exports = class Collection extends Storage {
    */
   async insertOne(doc) {
     const ids = await this.insertMany([doc])
-    return ids[0]._id
+    return ids[0]
   }
 
   /**
