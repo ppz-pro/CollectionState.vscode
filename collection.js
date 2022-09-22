@@ -11,9 +11,9 @@ module.exports = class Collection extends Storage {
   /**
    * insert multiple document
    * @param {T[]} docList
+   * @return {string[]} the ids of the inserted
    */
   async insertMany(docList) {
-    // TODO: return the inserted(with id)
     if(!(docList instanceof Array))
       throw TypeError('docList should be an Array')
     docList.every(this.validateOne)
@@ -25,6 +25,7 @@ module.exports = class Collection extends Storage {
     const all = this.getAll()
     all.push(...docList)
     await this.__saveAllUnique(all)
+    return docList.map(item => item._id)
   }
 
   /**
@@ -32,8 +33,8 @@ module.exports = class Collection extends Storage {
    * @param doc the document to insert
    */
   async insertOne(doc) {
-    // TODO: return the inserted(with id)
-    await this.insertMany([doc])
+    const ids = await this.insertMany([doc])
+    return ids[0]._id
   }
 
   /**
@@ -97,10 +98,11 @@ module.exports = class Collection extends Storage {
    * @param {T}
    */
   async upsert(document) {
-    if(document._id !== undefined)
+    if(document._id !== undefined) {
       await this.replaceOne(document)
-    else
-      await this.insertOne(document)
+      return document._id
+    } else
+      return await this.insertOne(document)
   }
 
   /** TODO
